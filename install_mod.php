@@ -22,7 +22,7 @@ function install()
 
 	$db->query('INSERT INTO '.$db->prefix.'config (conf_name, conf_value) VALUES (\'most_users_online\', 0)');
 	$db->query('INSERT INTO '.$db->prefix.'config (conf_name, conf_value) VALUES (\'most_users_online_date\', '.time().')');
-	
+
 	// Regenerate the config cache
     if (!defined('FORUM_CACHE_FUNCTIONS_LOADED'))
         require PUN_ROOT.'include/cache.php';
@@ -36,7 +36,7 @@ function restore()
 	global $db, $db_type, $pun_config;
 
 	$db->query('DELETE FROM '.$db->prefix.'config WHERE conf_name IN (\'most_users_online\', \'most_users_online_date\')');
-	
+
 	// Regenerate the config cache
     if (!defined('FORUM_CACHE_FUNCTIONS_LOADED'))
         require PUN_ROOT.'include/cache.php';
@@ -151,3 +151,11 @@ else
 
 </body>
 </html>
+
+<?php
+
+// End the transaction
+$db->end_transaction();
+
+// Close the db connection (and free up any result data)
+$db->close();
